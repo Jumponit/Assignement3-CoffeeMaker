@@ -280,27 +280,59 @@ public class InventoryTest {
 
 	@Test
 	public void testEnoughIngredientsTrue() {
-		fail("Not yet implemented");
+		assertTrue(in.enoughIngredients(r));
 	}
 	
 	@Test
-	public void testEnoughIngredientsFalse() {
-		fail("Not yet implemented");
+	public void testEnoughIngredientsFalseCoffee() {
+		in.setCoffee(0);
+		assertFalse(in.enoughIngredients(r));
+		in.setCoffee(coffee);
+	}
+	
+	@Test
+	public void testEnoughIngredientsFalseMilk() {
+		in.setMilk(3);
+		assertFalse(in.enoughIngredients(r));
+		in.setMilk(milk);
+	}
+	
+	@Test
+	public void testEnoughIngredientsFalseSugar() {
+		in.setSugar(0);
+		assertFalse(in.enoughIngredients(r));
+		in.setSugar(sugar);
+	}
+	
+	@Test
+	public void testEnoughIngredientsFalseChocolate() {
+		in.setChocolate(1);
+		assertFalse(in.enoughIngredients(r));
+		in.setChocolate(chocolate);
 	}
 
 	@Test
 	public void testUseIngredientsTrue() {
-		fail("Not yet implemented");
+		assertTrue(in.useIngredients(r));
+		in.setMilk(milk);
+		in.setChocolate(chocolate);
+		in.setCoffee(coffee);
+		in.setSugar(sugar);
 	}
 	
 	@Test
 	public void testUseIngredientsFalse() {
-		fail("Not yet implemented");
+		in.setMilk(1);
+		assertFalse(in.useIngredients(r));
+		in.setMilk(milk);
+		in.setChocolate(chocolate);
+		in.setCoffee(coffee);
+		in.setSugar(sugar);
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		assertEquals(in.toString(), "Coffee: 15\nMilk: 15\nSugar: 15\nChocolate: 15\n");
 	}
 
 }
