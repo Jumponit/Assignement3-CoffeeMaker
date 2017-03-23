@@ -103,16 +103,55 @@ public class RecipeBookTest {
 
 	@Test
 	public void testDeleteRecipe() {
-		Recipe[] expected = this.recipeArray;
-		Recipe[] actual = this.recipeBook.getRecipes();
-		assertArrayEquals(expected, actual);
+		this.recipeBook.addRecipe(this.recipe);
+		String expectedRecipeName = this.recipe.getName();
+		String actualRecipeName = this.recipeBook.deleteRecipe(0);
+		this.recipeArray[0] = new Recipe();
+		Recipe[] expectedRecipeArray = this.recipeArray;
+		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
+		assertEquals(expectedRecipeName, actualRecipeName);
+		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
+		// Fault in deleteRecipe???
+		// Should it set slot at deleted recipe's index to null?
+	}
+	
+	@Test
+	public void testDeleteRecipeInvalid() {
+		this.recipeBook.addRecipe(this.recipe);
+		String actualRecipeName = this.recipeBook.deleteRecipe(1);
+		this.recipeArray[0] = this.recipe;
+		Recipe[] expectedRecipeArray = this.recipeArray;
+		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
+		assertNull(actualRecipeName);
+		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
+		// Fault in deleteRecipe???
+		// Should it set slot at deleted recipe's index to null?
 	}
 
 	@Test
 	public void testEditRecipe() {
-		Recipe[] expected = this.recipeArray;
-		Recipe[] actual = this.recipeBook.getRecipes();
-		assertArrayEquals(expected, actual);
+		this.recipeBook.addRecipe(this.recipe);
+		String expectedRecipeName = this.recipe.getName();
+		String actualRecipeName = this.recipeBook.editRecipe(0, this.newRecipe);
+		this.recipeArray[0] = this.newRecipe;
+		Recipe[] expectedRecipeArray = this.recipeArray;
+		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
+		assertEquals(expectedRecipeName, actualRecipeName);
+		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
+		// Fault in editRecipe???
+		// Why does it set name to ""?
+		// How does this not fail???
+	}
+	
+	@Test
+	public void testEditRecipeInvalid() {
+		this.recipeBook.addRecipe(this.recipe);
+		String actualRecipeName = this.recipeBook.editRecipe(1, this.newRecipe);
+		this.recipeArray[0] = this.recipe;
+		Recipe[] expectedRecipeArray = this.recipeArray;
+		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
+		assertNull(actualRecipeName);
+		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
 	}
 
 }
