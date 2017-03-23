@@ -311,9 +311,17 @@ public class InventoryTest {
 		in.setChocolate(chocolate);
 	}
 
+	//generates failure at coffee += amount, should change to coffee -=
 	@Test
 	public void testUseIngredientsTrue() {
 		assertTrue(in.useIngredients(r));
+		
+		//check amounts
+		assertEquals(in.getCoffee(), coffee - r.getAmtCoffee());
+		assertEquals(in.getChocolate(), chocolate - r.getAmtChocolate());
+		assertEquals(in.getMilk(), milk - r.getAmtMilk());
+		assertEquals(in.getSugar(), sugar - r.getAmtSugar());
+		
 		in.setMilk(milk);
 		in.setChocolate(chocolate);
 		in.setCoffee(coffee);
