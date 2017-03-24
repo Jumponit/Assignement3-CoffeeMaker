@@ -55,10 +55,18 @@ public class InventoryTest {
 
 	@Before
 	public void setUp() throws Exception {
+		in.setMilk(milk);
+		in.setChocolate(chocolate);
+		in.setCoffee(coffee);
+		in.setSugar(sugar);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		in.setMilk(milk);
+		in.setChocolate(chocolate);
+		in.setCoffee(coffee);
+		in.setSugar(sugar);
 	}
 
 	@Test
@@ -270,6 +278,7 @@ public class InventoryTest {
 	}
 	
 	//results in a error, related to line 182
+	//change from <= to >=
 	@Test
 	public void testAddSugarPositive() throws InventoryException{
 		in.addSugar("5");
@@ -321,21 +330,12 @@ public class InventoryTest {
 		assertEquals(in.getChocolate(), chocolate - r.getAmtChocolate());
 		assertEquals(in.getMilk(), milk - r.getAmtMilk());
 		assertEquals(in.getSugar(), sugar - r.getAmtSugar());
-		
-		in.setMilk(milk);
-		in.setChocolate(chocolate);
-		in.setCoffee(coffee);
-		in.setSugar(sugar);
 	}
 	
 	@Test
 	public void testUseIngredientsFalse() {
 		in.setMilk(1);
 		assertFalse(in.useIngredients(r));
-		in.setMilk(milk);
-		in.setChocolate(chocolate);
-		in.setCoffee(coffee);
-		in.setSugar(sugar);
 	}
 
 	@Test
