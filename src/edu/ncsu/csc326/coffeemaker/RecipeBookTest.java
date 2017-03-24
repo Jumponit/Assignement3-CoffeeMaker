@@ -130,14 +130,19 @@ public class RecipeBookTest {
 
 	@Test
 	public void testEditRecipe() {
+		System.out.println("New Recipe name: " + this.newRecipe.getName());
 		this.recipeBook.addRecipe(this.recipe);
 		String expectedRecipeName = this.recipe.getName();
 		String actualRecipeName = this.recipeBook.editRecipe(0, this.newRecipe);
 		this.recipeArray[0] = this.newRecipe;
+		System.out.println("New Recipe name: " + this.newRecipe.getName());
+		System.out.println(this.recipeArray[0].getName());
 		Recipe[] expectedRecipeArray = this.recipeArray;
 		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 		assertEquals(expectedRecipeName, actualRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
+		System.out.println(this.recipeArray[0].getName());
+		assertEquals(this.recipeArray[0].getName(), this.recipeBook.getRecipes()[0].getName());
 		// Fault in editRecipe???
 		// Why does it set name to ""?
 		// How does this not fail???
