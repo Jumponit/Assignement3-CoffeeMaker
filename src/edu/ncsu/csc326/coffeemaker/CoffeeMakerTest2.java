@@ -60,7 +60,7 @@ public class CoffeeMakerTest2 {
 	public void testDeleteRecipe() {
 		String expectedRecipeName = this.recipeArray[0].getName();
 		String actualRecipeName = this.coffeeMaker.deleteRecipe(0);
-		this.recipeArray[0] = new Recipe();
+		this.recipeArray[0] = null;
 		Recipe[] expectedRecipeArray = this.recipeArray;
 		Recipe[] actualRecipeArray = this.coffeeMaker.getRecipes();
 		assertEquals(expectedRecipeName, actualRecipeName);
