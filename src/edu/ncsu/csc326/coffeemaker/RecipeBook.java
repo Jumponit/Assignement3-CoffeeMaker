@@ -55,9 +55,12 @@ public class RecipeBook {
 	 * @return String
 	 */
 	public synchronized String deleteRecipe(int recipeToDelete) {
+		if(recipeToDelete >= recipeArray.length) {
+			throw new IndexOutOfBoundsException("The index provided is out of bounds of the Recipe array.");
+		}
 		if (recipeArray[recipeToDelete] != null) {
 			String recipeName = recipeArray[recipeToDelete].getName();
-			recipeArray[recipeToDelete] = new Recipe();
+			recipeArray[recipeToDelete] = null;
 			return recipeName;
 		} else {
 			return null;
@@ -72,9 +75,11 @@ public class RecipeBook {
 	 * @return String
 	 */
 	public synchronized String editRecipe(int recipeToEdit, Recipe newRecipe) {
+		if(recipeToEdit >= recipeArray.length) {
+			throw new IndexOutOfBoundsException("The index provided is out of bounds of the Recipe array.");
+		}
 		if (recipeArray[recipeToEdit] != null) {
 			String recipeName = recipeArray[recipeToEdit].getName();
-			newRecipe.setName("");
 			recipeArray[recipeToEdit] = newRecipe;
 			return recipeName;
 		} else {

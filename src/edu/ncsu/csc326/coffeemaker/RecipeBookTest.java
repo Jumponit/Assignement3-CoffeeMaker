@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class RecipeBookTest {
 	
@@ -13,6 +15,9 @@ public class RecipeBookTest {
 	private Recipe recipe;
 	private Recipe newRecipe;
 
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Before
 	public void setUp() throws Exception {
 		this.recipeBook = new RecipeBook();
@@ -106,13 +111,11 @@ public class RecipeBookTest {
 		this.recipeBook.addRecipe(this.recipe);
 		String expectedRecipeName = this.recipe.getName();
 		String actualRecipeName = this.recipeBook.deleteRecipe(0);
-		this.recipeArray[0] = new Recipe();
+		this.recipeArray[0] = null;
 		Recipe[] expectedRecipeArray = this.recipeArray;
 		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 		assertEquals(expectedRecipeName, actualRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
-		// Fault in deleteRecipe???
-		// Should it set slot at deleted recipe's index to null?
 	}
 	
 	@Test
@@ -124,28 +127,26 @@ public class RecipeBookTest {
 		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 		assertNull(actualRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
-		// Fault in deleteRecipe???
-		// Should it set slot at deleted recipe's index to null?
+	}
+	
+	@Test
+	public void testDeleteRecipeIndexOutOfBounds() throws IndexOutOfBoundsException {
+		thrown.expect(IndexOutOfBoundsException.class);
+		thrown.expectMessage("The index provided is out of bounds of the Recipe array.");
+		this.recipeBook.deleteRecipe(4);
 	}
 
 	@Test
 	public void testEditRecipe() {
-		System.out.println("New Recipe name: " + this.newRecipe.getName());
 		this.recipeBook.addRecipe(this.recipe);
 		String expectedRecipeName = this.recipe.getName();
 		String actualRecipeName = this.recipeBook.editRecipe(0, this.newRecipe);
 		this.recipeArray[0] = this.newRecipe;
-		System.out.println("New Recipe name: " + this.newRecipe.getName());
-		System.out.println(this.recipeArray[0].getName());
 		Recipe[] expectedRecipeArray = this.recipeArray;
 		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 		assertEquals(expectedRecipeName, actualRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
-		System.out.println(this.recipeArray[0].getName());
 		assertEquals(this.recipeArray[0].getName(), this.recipeBook.getRecipes()[0].getName());
-		// Fault in editRecipe???
-		// Why does it set name to ""?
-		// How does this not fail???
 	}
 	
 	@Test
@@ -157,6 +158,13 @@ public class RecipeBookTest {
 		Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 		assertNull(actualRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
+	}
+	
+	@Test
+	public void testEditRecipeIndexOutOfBounds() throws IndexOutOfBoundsException {
+		thrown.expect(IndexOutOfBoundsException.class);
+		thrown.expectMessage("The index provided is out of bounds of the Recipe array.");
+		this.recipeBook.editRecipe(4, this.newRecipe);
 	}
 
 }
