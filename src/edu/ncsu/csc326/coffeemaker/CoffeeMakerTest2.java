@@ -71,12 +71,12 @@ public class CoffeeMakerTest2 {
 	public void testEditRecipe() {
 		Recipe newRecipe = new Recipe();
 		newRecipe.setName("Test New Recipe");
-		String expectedRecipeName = this.recipeArray[0].getName();
-		String actualRecipeName = this.coffeeMaker.editRecipe(0, newRecipe);
+		String expectedOldRecipeName = this.recipeArray[0].getName();
+		String actualOldRecipeName = this.coffeeMaker.editRecipe(0, newRecipe);
 		this.recipeArray[0] = newRecipe;
 		Recipe[] expectedRecipeArray = this.recipeArray;
 		Recipe[] actualRecipeArray = this.coffeeMaker.getRecipes();
-		assertEquals(expectedRecipeName, actualRecipeName);
+		assertEquals(expectedOldRecipeName, actualOldRecipeName);
 		assertArrayEquals(expectedRecipeArray, actualRecipeArray);
 	}
 
@@ -102,13 +102,10 @@ public class CoffeeMakerTest2 {
 
 	@Test
 	public void testMakeCoffee() {
-		System.out.println(this.coffeeMaker.checkInventory());
 		int expectedInt = 1;
 		int actualInt = this.coffeeMaker.makeCoffee(0, 5);
 		String expectedInventoryString = "Coffee: 10\nMilk: 10\nSugar: 10\nChocolate: 15\n";
 		String actualInventoryString = this.coffeeMaker.checkInventory();
-		System.out.println(expectedInventoryString);
-		System.out.println(actualInventoryString);
 		assertEquals(expectedInt, actualInt);
 		assertEquals(expectedInventoryString, actualInventoryString);
 	}
@@ -124,13 +121,10 @@ public class CoffeeMakerTest2 {
 			fail();
 		}
 		this.coffeeMaker.addRecipe(badRecipe);
-		System.out.println(this.coffeeMaker.checkInventory());
 		int expectedInt = 5;
 		int actualInt = this.coffeeMaker.makeCoffee(1, 5);
 		String expectedInventoryString = "Coffee: 15\nMilk: 15\nSugar: 15\nChocolate: 15\n";
 		String actualInventoryString = this.coffeeMaker.checkInventory();
-		System.out.println(expectedInventoryString);
-		System.out.println(actualInventoryString);
 		assertEquals(expectedInt, actualInt);
 		assertEquals(expectedInventoryString, actualInventoryString);
 	}
